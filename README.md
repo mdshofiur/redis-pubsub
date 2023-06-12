@@ -1,81 +1,67 @@
-# Turborepo starter
 
-This is an official starter Turborepo.
+## Introduction
 
-## Using this example
+This project is a monorepo utilizing the TurboRepo structure. The monorepo contains three main projects: front-end, subscriber, and publisher.The front-end project serves as the user interface, while the subscriber and publisher projects implement the Redis Pub/Sub model for intercommunication.
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
+## Installation
+ To set up the project, follow the steps below:
+ 
+1. Clone the repository:
+```
+git clone <repository_url>
 ```
 
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
+2. Install dependencies for all projects. From the root directory of the repository, run the following command:
 ```
-cd my-turborepo
-pnpm build
+pnpm install
 ```
 
-### Develop
+3. Configure the Redis Pub/Sub system:
 
-To develop all apps and packages, run the following command:
+* Make sure you have Redis installed and running either on your local machine or a remote server.
+* Update the Redis connection details in the configuration files of both the subscriber and publisher projects.
 
+## Running the Projects
+
+1. Front-end:
 ```
-cd my-turborepo
+cd apps/front-end
 pnpm dev
 ```
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
+1. Subscriber:
 ```
-cd my-turborepo
-npx turbo login
+cd apps/front-end
+pnpm dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
+1. Publisher:
 ```
-npx turbo link
+cd apps/front-end
+pnpm dev
 ```
 
-## Useful Links
+### Front-end User Interface
 
-Learn more about the power of Turborepo:
+The front-end project serves as the user interface for the application. It includes an input field where you can enter a message to publish, and upon sending the message, it will be displayed in the VS Code terminal.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+
+
+### Redis Pub/Sub Model
+
+The Redis Pub/Sub model is used for intercommunication between the subscriber and publisher projects. Here's an overview of how it works:
+
+Publisher:
+
+* The publisher project produces messages and publishes them to Redis channels.
+* It utilizes the Redis client library to establish a connection with the Redis server and publish messages.
+* Messages can be published to one or more channels, allowing multiple subscribers to receive them.
+
+Subscriber:
+
+* The subscriber project subscribes to Redis channels and consumes messages.
+* It also uses the Redis client library to connect to the Redis server and      subscribe to specific channels.
+* When a message is published to a channel, the subscriber receives it and performs the necessary actions.
+
+The Redis Pub/Sub model enables a decoupled and scalable architecture, where the publisher and subscriber projects can operate independently. This approach facilitates easy scaling, fault tolerance, and extensibility.
+
