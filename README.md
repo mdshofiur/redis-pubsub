@@ -31,13 +31,13 @@ pnpm dev
 
 1. Subscriber:
 ```
-cd apps/front-end
+cd apps/subscriber
 pnpm dev
 ```
 
 1. Publisher:
 ```
-cd apps/front-end
+cd apps/publisher
 pnpm dev
 ```
 
